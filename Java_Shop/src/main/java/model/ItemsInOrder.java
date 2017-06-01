@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,12 @@ public class ItemsInOrder {
     @JoinColumn(name = "stock_id", nullable = false)
     private Stock stock;
 
+    @Column(name = "amount_in_order")
+    private Integer amount;
+    @Column(nullable = false)
+    private String status;
+
+    @JsonIgnore
     @ManyToMany(cascade =
             {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "items_in_order",
@@ -40,8 +48,7 @@ public class ItemsInOrder {
     )
     private List<Order> orders = new ArrayList<>();
 
-    @Column(name = "amount_in_order")
-    private Integer amount;
+
 
     public ItemsInOrder() {
     }
@@ -80,5 +87,13 @@ public class ItemsInOrder {
     }
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

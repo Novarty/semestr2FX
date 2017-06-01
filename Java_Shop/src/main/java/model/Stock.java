@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -16,9 +18,11 @@ public class Stock {
 
     private String address;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "stock", cascade = CascadeType.ALL, orphanRemoval = true)
     private ItemsInStock itemsInStock;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "stock", cascade = CascadeType.ALL, orphanRemoval = true)
     private ItemsInOrder itemsInOrder;
 

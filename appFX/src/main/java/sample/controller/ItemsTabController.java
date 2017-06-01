@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
  * Created by admin on 25.05.2017.
  */
 public class ItemsTabController implements Initializable {
-    private static final Logger log = LoggerFactory.getLogger(ItemsController.class);
+    private static final Logger log = LoggerFactory.getLogger(ItemsTabController.class);
     private MainController main;
     private ObservableList<ItemsInStock> itemsData = FXCollections.observableArrayList();
 
@@ -44,16 +44,8 @@ public class ItemsTabController implements Initializable {
         nameColumn1.setCellValueFactory(new PropertyValueFactory<ItemsInStock, String>("name"));
         amountColumn1.setCellValueFactory(new PropertyValueFactory<ItemsInStock, Integer>("amount"));
 
-        // заполняем таблицу данными
-        tableItemsInStock.setItems(itemsData);
+        tableItemsInStock.setItems(itemsData); // заполняем таблицу данными
     }
-
-//    private void initData() {
-//        // инициализируем данные
-//
-//        itemsData.add(new ItemsInStock("Картошка",345));
-//        itemsData.add(new ItemsInStock("Томаты",146));
-//    }
 
     public void init(MainController mainController) {
         main = mainController;
@@ -64,7 +56,7 @@ public class ItemsTabController implements Initializable {
             public void run() {
                 try {
                     CloseableHttpClient httpclient = HttpClients.createDefault();
-                    HttpGet httpGet = new HttpGet("http://localhost:8888/items");
+                    HttpGet httpGet = new HttpGet("http://localhost:8888/allItems");
                     log.debug("Http request sent to  " + httpGet.getURI());
                     CloseableHttpResponse response1 = httpclient.execute(httpGet);
                     BufferedReader rd = new BufferedReader(new InputStreamReader(response1.getEntity().getContent()));
@@ -76,9 +68,8 @@ public class ItemsTabController implements Initializable {
                     JSONArray o = new JSONArray(result.toString());
                     for (int i = 0; i < o.length(); i++)
                     {
-
-                        itemsData.addAll(new ItemsInStock(o.getJSONObject(i).getString("name"),o.getJSONObject(i).getInt("amount")));
-
+                        itemsData.addAll(new ItemsInStock(o.getJSONObject(i).getString("itemName"),
+                                o.getJSONObject(i).getInt("amount")));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

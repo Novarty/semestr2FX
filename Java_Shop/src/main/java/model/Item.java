@@ -1,6 +1,8 @@
 package model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -20,10 +22,11 @@ public class Item {
     @Column
     private Integer amount;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private ItemsInStock itemsInStock;
 
-
+    @JsonIgnore
     @OneToOne(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private ItemsInOrder itemsInOrder;
 
