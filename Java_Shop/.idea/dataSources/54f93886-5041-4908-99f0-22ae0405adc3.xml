@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="shop@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.0">
+    <root id="1"/>
+    <schema id="2" parent="1" name="shop">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="calculator"/>
+    <schema id="4" parent="1" name="information_schema"/>
+    <schema id="5" parent="1" name="mysql"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="sakila"/>
+    <schema id="8" parent="1" name="sys"/>
+    <schema id="9" parent="1" name="world"/>
+    <table id="10" parent="2" name="items"/>
+    <table id="11" parent="2" name="items_in_order"/>
+    <table id="12" parent="2" name="itemsinorder"/>
+    <table id="13" parent="2" name="itemsinstock"/>
+    <table id="14" parent="2" name="orders"/>
+    <table id="15" parent="2" name="stock"/>
+    <table id="16" parent="2" name="users"/>
+    <column id="17" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="18" parent="10" name="description">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+    </column>
+    <column id="19" parent="10" name="itemName">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="20" parent="10" name="amount">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <index id="21" parent="10" name="UK_ix851y7kx79s8w5kg2bixd9xi">
+      <ColNames>itemName</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="22" parent="10" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="23" parent="10" name="UK_ix851y7kx79s8w5kg2bixd9xi">
+      <ColNames>itemName</ColNames>
+      <UnderlyingIndexName>UK_ix851y7kx79s8w5kg2bixd9xi</UnderlyingIndexName>
+    </key>
+    <column id="24" parent="11" name="itemsInOrder_id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="25" parent="11" name="order_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="26" parent="11" name="FK_jjfglk2ujr9133l5qcg03msr1">
+      <ColNames>order_id</ColNames>
+    </index>
+    <index id="27" parent="11" name="FK_jsgw7wn6g9i1oket13v1c6foc">
+      <ColNames>itemsInOrder_id</ColNames>
+    </index>
+    <foreign-key id="28" parent="11" name="FK_jsgw7wn6g9i1oket13v1c6foc">
+      <ColNames>itemsInOrder_id</ColNames>
+      <RefSchemaName>shop</RefSchemaName>
+      <RefTableName>itemsinorder</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="29" parent="11" name="FK_jjfglk2ujr9133l5qcg03msr1">
+      <ColNames>order_id</ColNames>
+      <RefSchemaName>shop</RefSchemaName>
+      <RefTableName>orders</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="30" parent="12" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="31" parent="12" name="amount_in_order">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="32" parent="12" name="item_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="12" name="stock_id">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="34" parent="12" name="UK_7rg9hlvhpybawoh5q6lyqw7vj">
+      <ColNames>stock_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="35" parent="12" name="UK_b76fksiqdntaopnga76tc8xox">
+      <ColNames>item_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="36" parent="12" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="37" parent="12" name="UK_b76fksiqdntaopnga76tc8xox">
+      <ColNames>item_id</ColNames>
+      <UnderlyingIndexName>UK_b76fksiqdntaopnga76tc8xox</UnderlyingIndexName>
+    </key>
+    <key id="38" parent="12" name="UK_7rg9hlvhpybawoh5q6lyqw7vj">
+      <ColNames>stock_id</ColNames>
+      <UnderlyingIndexName>UK_7rg9hlvhpybawoh5q6lyqw7vj</UnderlyingIndexName>
+    </key>
+    <foreign-key id="39" parent="12" name="FK_b76fksiqdntaopnga76tc8xox">
+      <ColNames>item_id</ColNames>
+      <RefSchemaName>shop</RefSchemaName>
+      <RefTableName>items</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="40" parent="12" name="FK_7rg9hlvhpybawoh5q6lyqw7vj">
+      <ColNames>stock_id</ColNames>
+      <RefSchemaName>shop</RefSchemaName>
+      <RefTableName>stock</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="41" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="42" parent="13" name="item_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="13" name="stock_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="44" parent="13" name="UK_jk2udpiyqbt7vewiiwyjxuvls">
+      <ColNames>item_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="45" parent="13" name="UK_n5ky4k6mt6tmfqxkbe18au11m">
+      <ColNames>stock_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="46" parent="13" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="47" parent="13" name="UK_jk2udpiyqbt7vewiiwyjxuvls">
+      <ColNames>item_id</ColNames>
+      <UnderlyingIndexName>UK_jk2udpiyqbt7vewiiwyjxuvls</UnderlyingIndexName>
+    </key>
+    <key id="48" parent="13" name="UK_n5ky4k6mt6tmfqxkbe18au11m">
+      <ColNames>stock_id</ColNames>
+      <UnderlyingIndexName>UK_n5ky4k6mt6tmfqxkbe18au11m</UnderlyingIndexName>
+    </key>
+    <foreign-key id="49" parent="13" name="FK_jk2udpiyqbt7vewiiwyjxuvls">
+      <ColNames>item_id</ColNames>
+      <RefSchemaName>shop</RefSchemaName>
+      <RefTableName>items</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="50" parent="13" name="FK_n5ky4k6mt6tmfqxkbe18au11m">
+      <ColNames>stock_id</ColNames>
+      <RefSchemaName>shop</RefSchemaName>
+      <RefTableName>stock</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="51" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="52" parent="14" name="status">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="53" parent="14" name="user_id">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="54" parent="14" name="UK_k8kupdtcdpqd57b6j4yq9uvdj">
+      <ColNames>user_id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="55" parent="14" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="56" parent="14" name="UK_k8kupdtcdpqd57b6j4yq9uvdj">
+      <ColNames>user_id</ColNames>
+      <UnderlyingIndexName>UK_k8kupdtcdpqd57b6j4yq9uvdj</UnderlyingIndexName>
+    </key>
+    <foreign-key id="57" parent="14" name="FK_k8kupdtcdpqd57b6j4yq9uvdj">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>shop</RefSchemaName>
+      <RefTableName>users</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="58" parent="15" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="59" parent="15" name="address">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="60" parent="15" name="city">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="61" parent="15" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="62" parent="16" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="63" parent="16" name="email">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="64" parent="16" name="name">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="65" parent="16" name="password">
+      <Position>4</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="66" parent="16" name="role">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <column id="67" parent="16" name="is_confirm">
+      <Position>6</Position>
+      <DataType>bit(1)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="68" parent="16" name="UK_6dotkott2kjsp8vw4d0m25fb7">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="69" parent="16" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="70" parent="16" name="UK_6dotkott2kjsp8vw4d0m25fb7">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>UK_6dotkott2kjsp8vw4d0m25fb7</UnderlyingIndexName>
+    </key>
+  </database-model>
+</dataSource>
