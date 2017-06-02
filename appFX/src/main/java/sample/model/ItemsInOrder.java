@@ -1,7 +1,5 @@
 package sample.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -9,12 +7,12 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class ItemsInOrder {
     private SimpleStringProperty name;
-    private IntegerProperty amountInOrder;
+    private SimpleStringProperty amountInOrder;
     private SimpleStringProperty status; // ENUM возможно.
 
-    public ItemsInOrder(String name, Integer amountInOrder, String status) {
+    public ItemsInOrder(String name, String amountInOrder, String status) {
         this.name = new  SimpleStringProperty(name);
-        this.amountInOrder = new SimpleIntegerProperty(amountInOrder);
+        this.amountInOrder = new SimpleStringProperty(amountInOrder);
         this.status = new SimpleStringProperty(status);
     }
 
@@ -33,18 +31,6 @@ public class ItemsInOrder {
         this.name.set(name);
     }
 
-    public int getAmountInOrder() {
-        return amountInOrder.get();
-    }
-
-    public IntegerProperty amountInOrderProperty() {
-        return amountInOrder;
-    }
-
-    public void setAmountInOrder(int amountInOrder) {
-        this.amountInOrder.set(amountInOrder);
-    }
-
     public String getStatus() {
         return status.get();
     }
@@ -55,5 +41,17 @@ public class ItemsInOrder {
 
     public void setStatus(String status) {
         this.status.set(status);
+    }
+
+    public String getAmountInOrder() {
+        return amountInOrder.get();
+    }
+
+    public SimpleStringProperty amountInOrderProperty() {
+        return amountInOrder;
+    }
+
+    public void setAmountInOrder(String amountInOrder) {
+        this.amountInOrder.set(amountInOrder);
     }
 }

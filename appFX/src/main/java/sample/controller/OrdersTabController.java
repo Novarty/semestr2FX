@@ -6,8 +6,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -35,7 +37,7 @@ public class OrdersTabController implements Initializable {
     @FXML
     private TableColumn<ItemsInOrder, String> nameColumn2;
     @FXML
-    private TableColumn<ItemsInOrder, Integer> amountColumn2;
+    private TableColumn<ItemsInOrder, String> amountColumn2;
     @FXML
     private TableColumn<ItemsInOrder, String> statusColumn;
 
@@ -43,10 +45,11 @@ public class OrdersTabController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initData();
+        editable();
         // устанавливаем тип изначение которое должно храниться в колонке
         nameColumn2.setCellValueFactory(new PropertyValueFactory<ItemsInOrder, String>("name"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<ItemsInOrder, String>("status"));
-        amountColumn2.setCellValueFactory(new PropertyValueFactory<ItemsInOrder, Integer>("amountInOrder"));
+        amountColumn2.setCellValueFactory(new PropertyValueFactory<ItemsInOrder, String>("amountInOrder"));
 
         tableItemsInOrder.setItems(ordersData); // заполняем таблицу данными
     }
@@ -72,7 +75,7 @@ public class OrdersTabController implements Initializable {
                     for (int i = 0; i < o.length(); i++)
                     {
                         ordersData.addAll(new ItemsInOrder(o.getJSONObject(i).getJSONObject("item").getString("itemName"),
-                                o.getJSONObject(i).getInt("amount"), o.getJSONObject(i).getString("status")));
+                                String.valueOf(o.getJSONObject(i).getInt("amount")), o.getJSONObject(i).getString("status")));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -80,9 +83,18 @@ public class OrdersTabController implements Initializable {
             }
         });
     }
+    public void editable(){
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status1"));
+        statusColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+        statusColumn.setOnEditCommit((TableColumn.CellEditEvent<ItemsInOrder, String> event) -> {
+            TablePosition<ItemsInOrder, String> pos = event.getTablePosition();
 
+            String newId = event.getNewValue();
 
-//    public ObservableList<ItemsInOrder> getItemsInOrderObservableList() {
-//        return itemsInOrderObservableList;
-//    }
+            int row = pos.getRow();
+            ItemsInOrder item = event.getTableView().getItems().get(row);
+
+            item.setStatus(newId);
+        });
+    }
 }

@@ -13,7 +13,7 @@
             <TableView fx:id="tableItemsInOrder" editable="true" prefHeight="471.0" prefWidth="576.0">
                <columns>
                   <TableColumn fx:id="nameColumn2" editable="false" prefWidth="123.0" text="Название товара" />
-                  <TableColumn fx:id="amountColumn2" prefWidth="140.0" text="Количество в заказе" />
+                  <TableColumn fx:id="amountColumn2" editable="false" prefWidth="140.0" text="Количество в заказе" />
                   <TableColumn fx:id="statusColumn" prefWidth="140.0" text="Статус заказа" />
                </columns>
                <columnResizePolicy>

@@ -1,7 +1,5 @@
 package sample.model;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -10,11 +8,11 @@ import javafx.beans.property.SimpleStringProperty;
 //@JsonIgnoreProperties(ignoreUnknown = true)
 public class ItemsInStock {
     private SimpleStringProperty name;
-    private IntegerProperty amount;
+    private SimpleStringProperty amount;
 
-    public ItemsInStock(String name, Integer amount) {
+    public ItemsInStock(String name, String amount) {
         this.name = new  SimpleStringProperty(name);
-        this.amount = new SimpleIntegerProperty(amount);
+        this.amount = new SimpleStringProperty(amount);
     }
 
     public ItemsInStock() {
@@ -32,15 +30,16 @@ public class ItemsInStock {
         this.name.set(name);
     }
 
-    public int getAmount() {
+
+    public String getAmount() {
         return amount.get();
     }
 
-    public IntegerProperty amountProperty() {
+    public SimpleStringProperty amountProperty() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(String amount) {
         this.amount.set(amount);
     }
 }
