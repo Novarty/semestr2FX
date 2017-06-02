@@ -3,11 +3,14 @@ package sample.controller;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -16,11 +19,13 @@ import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sample.model.ItemsInStock;
+import sample.handler.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 /**
  * Created by admin on 25.05.2017.
@@ -40,6 +45,7 @@ public class ItemsTabController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initData();
+        editable();
         // устанавливаем тип изначение которое должно храниться в колонке
         nameColumn1.setCellValueFactory(new PropertyValueFactory<ItemsInStock, String>("name"));
         amountColumn1.setCellValueFactory(new PropertyValueFactory<ItemsInStock, Integer>("amount"));
@@ -76,6 +82,28 @@ public class ItemsTabController implements Initializable {
                 }
             }
         });
+    }
+    public void editable(){
+        tableItemsInStock.setEditable(true);
+        Callback<TableColumn, TableCell> cellFactory =
+                new Callback<TableColumn, TableCell>() {
+                    public TableCell call(TableColumn p) {
+                        return new EditingCell();
+                    }
+                };
+        amountColumn1.setCellValueFactory(
+                new PropertyValueFactory<ItemsInStock, Integer>("amount"));
+//        amountColumn1.setCellFactory(cellFactory);
+        amountColumn1.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<ItemsInStock, Integer>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<ItemsInStock, Integer> t) {
+                        ((ItemsInStock) t.getTableView().getItems().get(
+                                t.getTablePosition().getRow())
+                        ).setAmount(t.getNewValue());
+                    }
+                }
+        );
     }
 
 
